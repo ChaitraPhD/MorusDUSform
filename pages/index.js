@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { traitData } from "../data/traitData";
 
 export default function Home() {
   const [formData, setFormData] = useState({});
+  const [notes, setNotes] = useState({});
 
   const STAGE_OPTIONS = [
     "08 – After 8 days of pruning, when the buds start sprouting",
@@ -19,27 +21,14 @@ export default function Home() {
     "MS – Measured from individual"
   ];
 
-  const traitData = {
-    plantVigor: {
-      label: "Plant Vigor",
-      options: ["Low", "Medium", "High"],
-      notes: ["Low (3)", "Medium (5)", "High (7)"]
-    },
-    growthHabit: {
-      label: "Growth Habit",
-      options: ["Erect", "Semi-erect", "Spreading", "Drooping"],
-      notes: ["Erect (3)", "Semi-erect (5)", "Spreading (7)", "Drooping (9)"]
-    },
-    sprouting: {
-      label: "Sprouting Days",
-      options: ["Early (<10)", "Medium (10–15)", "Late (>15)"],
-      notes: ["Early (3)", "Medium (5)", "Late (7)"]
-    },
-    // 🔽 Include the remaining 32 traits here — refer to full traitData from earlier
-  };
-
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (traitData[name]) {
+      const note = traitData[name].stateNotes[value] || "";
+      setNotes((prev) => ({ ...prev, [name + "Note"]: note }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -58,38 +47,70 @@ export default function Home() {
     if (!trait) return null;
 
     return (
-      <div key={name} style={{ marginBottom: "2rem", borderBottom: "1px solid #ccc", paddingBottom: "1rem" }}>
-        <label><b>{trait.label}</b></label><br />
+      <div
+        key={name}
+        style={{
+          marginBottom: "2rem",
+          borderBottom: "1px solid #ccc",
+          paddingBottom: "1rem",
+        }}
+      >
+        <label>
+          <b>{trait.label}</b>
+        </label>
+        <br />
         <select name={name} onChange={handleChange} required>
-          <option value="">--Select Trait State--</option>
-          {trait.options.map((opt) => (
-            <option key={opt} value={opt}>{opt}</option>
+          <option value="">--Select State--</option>
+          {trait.states.map((state) => (
+            <option key={state} value={state}>
+              {state}
+            </option>
           ))}
         </select>
 
         <div style={{ marginTop: "0.5rem" }}>
-          <label>📅 Stage of Observation</label><br />
-          <select name={`${name}Stage`} onChange={handleChange} required>
+          <label>Note</label>
+          <br />
+          <input
+            type="text"
+            name={name + "Note"}
+            value={notes[name + "Note"] || ""}
+            readOnly
+          />
+        </div>
+
+        <div style={{ marginTop: "0.5rem" }}>
+          <label> Stage of Observation</label>
+          <br />
+          <select
+            name={name + "Stage"}
+            onChange={handleChange}
+            required
+          >
             <option value="">--Select Stage--</option>
-            {STAGE_OPTIONS.map((stage) => (
-              <option key={stage} value={stage}>{stage}</option>
+            {STAGE_OPTIONS.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
           </select>
         </div>
 
         <div style={{ marginTop: "0.5rem" }}>
-          <label>🔍 Type of Assessment</label><br />
-          <select name={`${name}Assessment`} onChange={handleChange} required>
+          <label> Type of Assessment</label>
+          <br />
+          <select
+            name={name + "Assessment"}
+            onChange={handleChange}
+            required
+          >
             <option value="">--Select Assessment--</option>
-            {ASSESSMENT_OPTIONS.map((assess) => (
-              <option key={assess} value={assess}>{assess}</option>
+            {ASSESSMENT_OPTIONS.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
             ))}
           </select>
-        </div>
-
-        <div style={{ marginTop: "0.5rem" }}>
-          <label>📝 Notes</label><br />
-          <textarea value={trait.notes.join("\n")} readOnly rows="3" />
         </div>
       </div>
     );
@@ -105,17 +126,14 @@ export default function Home() {
           onChange={handleChange}
           required
           style={{ marginBottom: "1rem" }}
-        /><br />
-
+        />
+        <br />
         <h2>🧬 All Traits</h2>
-        {renderTraitField("plantVigor")}
-        {renderTraitField("growthHabit")}
-        {renderTraitField("sprouting")}
-        {/* Add all other renderTraitField("...") lines here */}
+        {Object.keys(traitData).map((trait) => renderTraitField(trait))}
 
         <button type="submit">✅ Submit</button>
       </form>
     </div>
   );
-    }
-    
+                              }
+            
