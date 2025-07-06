@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { traitData } from "../data/traitData_with_types";
+import { traitData } from "../data/traitData";
 
 export default function Home() {
   const [formData, setFormData] = useState({});
