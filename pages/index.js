@@ -1,34 +1,35 @@
 import { useState } from "react";
-import { traitData } from "../data/traitData";
+import { traitData } from "../data/traitData_cleaned";
 
 export default function Home() {
   const [formData, setFormData] = useState({});
   const [notes, setNotes] = useState({});
 
   const STAGE_OPTIONS = [
-    "08 – After 8 days of pruning, when the buds start sprouting",
-    "20 – Mature/fully developed inflorescence (natural flowering season or 2–3 weeks post-pruning)",
-    "40 – Fully matured fruit",
-    "45 – On or after 45 days of pruning",
-    "60 – On or after 60 days of pruning",
-    "90 – On 90th day of pruning or planting"
+    "08 - After 8 days of pruning, when the buds start sprouting",
+    "20 - Mature/fully developed inflorescence (natural flowering season or 2-3 weeks post-pruning)",
+    "40 - Fully matured fruit",
+    "45 - On or after 45 days of pruning",
+    "60 - On or after 60 days of pruning",
+    "90 - On 90th day of pruning or planting"
   ];
 
   const ASSESSMENT_OPTIONS = [
-    "VG – Visual observation on group",
-    "VS – Visual observation on individual",
-    "MG – Measured from group",
-    "MS – Measured from individual"
+    "VG - Visual observation on group",
+    "VS - Visual observation on individual",
+    "MG - Measured from group",
+    "MS - Measured from individual"
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const updatedForm = { ...formData, [name]: value };
 
-    if (traitData[name]) {
-      const note = traitData[name].stateNotes[value] || "";
-      setNotes((prev) => ({ ...prev, [name + "Note"]: note }));
+    if (traitData[name] && traitData[name].stateNotes[value]) {
+      updatedForm[name + "Note"] = traitData[name].stateNotes[value];
     }
+
+    setFormData(updatedForm);
   };
 
   const handleSubmit = async (e) => {
@@ -57,12 +58,7 @@ export default function Home() {
         </select>
 
         <div style={{ marginTop: "0.5rem" }}>
-          <label>📋 Definition (Note)</label><br />
-          <input type="text" name={name + "Note"} value={notes[name + "Note"] || ""} readOnly />
-        </div>
-
-        <div style={{ marginTop: "0.5rem" }}>
-          <label>📅 Stage of Observation</label><br />
+          <label>Stage of Observation</label><br />
           <select name={name + "Stage"} onChange={handleChange} required>
             <option value="">--Select Stage--</option>
             {STAGE_OPTIONS.map((s) => (
@@ -72,7 +68,7 @@ export default function Home() {
         </div>
 
         <div style={{ marginTop: "0.5rem" }}>
-          <label>🔍 Type of Assessment</label><br />
+          <label>Type of Assessment</label><br />
           <select name={name + "Assessment"} onChange={handleChange} required>
             <option value="">--Select Assessment--</option>
             {ASSESSMENT_OPTIONS.map((a) => (
@@ -90,7 +86,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
-      <h1>🌿 Mulberry DUS Descriptor Form</h1>
+      <h1>Mulberry DUS Descriptor Form</h1>
       <form onSubmit={handleSubmit}>
         <input
           name="variety"
@@ -100,17 +96,17 @@ export default function Home() {
           style={{ marginBottom: "1rem" }}
         /><br />
 
-        <h2>📏 Quantitative Traits</h2>
+        <h2>Quantitative Traits</h2>
         {quantitativeTraits.map((trait) => renderTraitField(trait))}
 
-                <h2>🔘 Qualitative Traits</h2>
+        <h2>Qualitative Traits</h2>
         {qualitativeTraits.map((trait) => renderTraitField(trait))}
 
-        <h2>🧩 Pseudo-qualitative Traits</h2>
+        <h2>Pseudo-qualitative Traits</h2>
         {pseudoQualitativeTraits.map((trait) => renderTraitField(trait))}
 
-        <button type="submit">✅ Submit</button>
+        <button type="submit">âœ… Submit</button>
       </form>
     </div>
   );
-}
+  }
