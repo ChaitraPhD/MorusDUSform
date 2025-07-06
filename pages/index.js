@@ -6,19 +6,19 @@ export default function Home() {
   const [notes, setNotes] = useState({});
 
   const STAGE_OPTIONS = [
-    "08 “ After 8 days of pruning, when the buds start sprouting",
-    "20 “ Mature/fully developed inflorescence (natural flowering season or 2â€“3 weeks post-pruning)",
-    "40 “ Fully matured fruit",
-    "45 “ On or after 45 days of pruning",
-    "60 “ On or after 60 days of pruning",
-    "90 “ On 90th day of pruning or planting"
+    "08“ After 8 days of pruning, when the buds start sprouting",
+    "20“ Mature/fully developed inflorescence (natural flowering season or 2â€“3 weeks post-pruning)",
+    "40“ Fully matured fruit",
+    "45“ On or after 45 days of pruning",
+    "60“ On or after 60 days of pruning",
+    "90“ On 90th day of pruning or planting"
   ];
 
   const ASSESSMENT_OPTIONS = [
-    "VG “ Visual observation on group",
-    "VS “ Visual observation on individual",
-    "MG “ Measured from group",
-    "MS “ Measured from individual"
+    "VG â€“ Visual observation on group",
+    "VS â€“ Visual observation on individual",
+    "MG â€“ Measured from group",
+    "MS â€“ Measured from individual"
   ];
 
   const handleChange = (e) => {
@@ -27,7 +27,7 @@ export default function Home() {
 
     if (traitData[name]) {
       const note = traitData[name].stateNotes[value] || "";
-      setNotes(prev => { return { ...prev, [name + "Note"]: note }; });
+      setNotes((prev) => ({ ...prev, [name + "Note"]: note }));
     }
   };
 
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
 
         <div style={ marginTop: "0.5rem" }>
-          <label>Stage of Observation</label><br />
+          <label>ðŸ“… Stage of Observation</label><br />
           <select name={name + "Stage"} onChange={handleChange} required>
             <option value="">--Select Stage--</option>
             {STAGE_OPTIONS.map((s) => (
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
 
         <div style={ marginTop: "0.5rem" }>
-          <label>Type of Assessment</label><br />
+          <label>ðŸ” Type of Assessment</label><br />
           <select name={name + "Assessment"} onChange={handleChange} required>
             <option value="">--Select Assessment--</option>
             {ASSESSMENT_OPTIONS.map((a) => (
@@ -84,14 +84,13 @@ export default function Home() {
     );
   };
 
-  // Grouped trait keys
   const quantitativeTraits = ["plantVigor", "sprouting", "cuttingSurvival", "shootThickness", "internodalDistance", "petioleLength", "leafLength", "leafWidth", "budSize", "inflorescenceLength", "fruitLength", "fruitWidth"];
   const qualitativeTraits = ["stipuleNature", "budAttachment", "accessoryBud", "sex", "stigmaNature", "stigmaType"];
   const pseudoQualitativeTraits = ["growthHabit", "shootType", "matureShootColor", "phyllotaxy", "leafAngle", "petioleThickness", "leafShape", "leafColor", "leafHairiness", "leafTexture", "leafBase", "leafApex", "leafMargin", "leafType", "budShape", "fruitColor"];
 
   return (
     <div style={ padding: "2rem", fontFamily: "Arial, sans-serif" }>
-      <h1>Mulberry DUS Descriptor Form</h1>
+      <h1>ðŸŒ¿ Mulberry DUS Descriptor Form</h1>
       <form onSubmit={handleSubmit}>
         <input
           name="variety"
@@ -101,17 +100,17 @@ export default function Home() {
           style={ marginBottom: "1rem" }
         /><br />
 
-        <h2>Quantitative Traits</h2>
-        {quantitativeTraits.map(trait => renderTraitField(trait))}
+        <h2>ðŸ“ Quantitative Traits</h2>
+        {quantitativeTraits.map((trait) => renderTraitField(trait))}
 
-        <h2> Qualitative Traits</h2>
-        {qualitativeTraits.map(trait => renderTraitField(trait))}
+        <h2>ðŸ”˜ Qualitative Traits</h2>
+        {qualitativeTraits.map((trait) => renderTraitField(trait))}
 
-        <h2>Pseudo-qualitative Traits</h2>
-        {pseudoQualitativeTraits.map(trait => renderTraitField(trait))}
+        <h2>ðŸ§© Pseudo-qualitative Traits</h2>
+        {pseudoQualitativeTraits.map((trait) => renderTraitField(trait))}
 
-        <button type="submit">Submit</button>
+        <button type="submit">âœ… Submit</button>
       </form>
     </div>
   );
-  }
+            }
