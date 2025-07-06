@@ -103,6 +103,14 @@ export default function Home() {
         <h2>📏 Quantitative Traits</h2>
         {quantitativeTraits.map((trait) => renderTraitField(trait))}
 
-        <h2>🔘 Qualitative Traits</h2>
-        {qualitativeTraits.map((trait) => renderTra
-                                   
+                <h2>🔘 Qualitative Traits</h2>
+        {qualitativeTraits.map((trait) => renderTraitField(trait))}
+
+        <h2>🧩 Pseudo-qualitative Traits</h2>
+        {pseudoQualitativeTraits.map((trait) => renderTraitField(trait))}
+
+        <button type="submit">✅ Submit</button>
+      </form>
+    </div>
+  );
+}
