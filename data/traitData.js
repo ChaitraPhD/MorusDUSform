@@ -351,7 +351,7 @@ export const traitData = {
       "White": "White (5)",
       "Green": "Green (6)"
     }
-  }
+  },
   budAttachment: {
   label: "Bud Attachment",
   type: "Qualitative",
