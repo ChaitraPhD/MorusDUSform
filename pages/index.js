@@ -10,8 +10,8 @@ export const qualitative = [
   "sex",
   "stigmaNature",
   "stigmaType",
-  "matureBudSize",
-  "matureBudAttachment",
+  "budSize",
+  "budAttachment",
 ];
 
 export const quantitative = [
