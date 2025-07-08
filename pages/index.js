@@ -96,19 +96,32 @@ export default function Home() {
   };
 
   const renderTrait = (key) => {
-    const t = traitData[key];
-    if (!t) return null;
-
+  const t = traitData[key];
+  if (!t) {
+    console.warn(`Trait "${key}" not found in traitData.js`);
     return (
-      <div key={key} style={{ marginBottom: "30px" }}>
-        <label style={{ display: "block", fontWeight: "bold", marginBottom: "5px" }}>
-          {t.label}
-        </label>
-        <select name={key} onChange={handleChange} required style={{ width: "100%", padding: "8px", marginBottom: "10px" }}>
-          <option value="">--Select State--</option>
-          {t.states.map((s) => (
-            <option key={s} value={s}>{s}</option>
-          ))}
+      <div style={{ color: "red", marginBottom: "20px" }}>
+        ⚠️ Missing trait: <strong>{key}</strong>
+      </div>
+    );
+  }
+
+  return (
+    <div key={key} style={{ marginBottom: "30px" }}>
+      <label style={{ display: "block", fontWeight: "bold", marginBottom: "5px" }}>
+        {t.label}
+      </label>
+      <select name={key} onChange={handleChange} required style={{ width: "100%", padding: "8px", marginBottom: "10px" }}>
+        <option value="">--Select State--</option>
+        {t.states.map((s) => (
+          <option key={s} value={s}>{s}</option>
+        ))}
+      </select>
+      {/* Stage & Assessment code stays here */}
+    </div>
+  );
+};
+
         </select>
 
         <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>Stage of Observation</label>
