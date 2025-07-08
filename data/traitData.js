@@ -352,5 +352,20 @@ export const traitData = {
       "Green": "Green (6)"
     }
   }
+  budAttachment: {
+  label: "Bud Attachment",
+  type: "Qualitative",
+  states: [
+    "Adhering to branch",
+    "Slanting outward",
+    "Tilting to one side"
+  ],
+  stateNotes: {
+    "Adhering to branch": "Adhering (1)",
+    "Slanting outward": "Slanting (2)",
+    "Tilting to one side": "Tilting (3)"
+  }
+},
+
 };
       
