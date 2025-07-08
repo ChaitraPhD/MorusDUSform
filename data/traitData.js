@@ -365,7 +365,7 @@ export const traitData = {
     "Slanting outward": "Slanting (2)",
     "Tilting to one side": "Tilting (3)"
   }
-},
+}
 
 };
       
