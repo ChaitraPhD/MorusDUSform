@@ -88,6 +88,28 @@ export const traitData = {
       "Long (>6)": "Long (7)"
     }
   },
+  leafAngle: {
+  label: "Leaf Angle",
+  type: "Quantitative",
+  states: ["Acute", "Horizontal", "Obtuse"],
+  stateNotes: {
+    "Acute": "Acute (3)",
+    "Horizontal": "Horizontal (5)",
+    "Obtuse": "Obtuse (7)"
+  }
+},
+
+leafSize: {
+  label: "Leaf Size",
+  type: "Quantitative",
+  states: ["Small (<200 cm²)", "Medium (200–400 cm²)", "Large (>400 cm²)"],
+  stateNotes: {
+    "Small (<200 cm²)": "Small (3)",
+    "Medium (200–400 cm²)": "Medium (5)",
+    "Large (>400 cm²)": "Large (7)"
+  }
+},
+
   phyllotaxy: {
     label: "Phyllotaxy",
     type: "Pseudo-qualitative",
