@@ -1,57 +1,8 @@
-// pages/index.js
 import { useState } from "react";
 import { traitData } from "../data/traitData";
 
-// ➤ Group Definitions
-export const qualitative = [
-  "stipuleNature",
-  "budAttachment",
-  "accessoryBud",
-  "sex",
-  "stigmaNature",
-  "stigmaType",
-  "budSize",
-  "budAttachment",
-];
-
-export const quantitative = [
-  "plantVigor",
-  "sprouting",
-  "cuttingSurvival",
-  "shootThickness",
-  "internodalDistance",
-  "leafAngle",
-  "petioleLength",
-  "petioleThickness",
-  "leafLength",
-  "leafWidth",
-  "leafSize",
-  "inflorescenceLength",
-  "fruitLength",
-  "fruitWidth",
-];
-
-export const pseudo = [
-  "growthHabit",
-  "shootType",
-  "matureShootColor",
-  "phyllotaxy",
-  "leafShape",
-  "leafColor",
-  "leafHairiness",
-  "leafTexture",
-  "leafBase",
-  "leafApex",
-  "leafMargin",
-  "leafType",
-  "fruitColor",
-  "budShape",
-];
-
-// ➤ Component
 export default function Home() {
   const [formData, setFormData] = useState({});
-  const [step, setStep] = useState(0);
 
   const STAGE_OPTIONS = [
     "08 - After 8 days of pruning, when the buds start sprouting",
@@ -69,12 +20,8 @@ export default function Home() {
     "MS - Measured from individual",
   ];
 
-  const sections = [qualitative, quantitative, pseudo];
-  const titles = [
-    "🔘 Qualitative Traits",
-    "📏 Quantitative Traits",
-    "🧩 Pseudo‑qualitative Traits",
-  ];
+  // 🔑 Get all keys from traitData in one array
+  const allTraits = Object.keys(traitData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,44 +43,53 @@ export default function Home() {
   };
 
   const renderTrait = (key) => {
-  const t = traitData[key];
-  if (!t) {
-    console.warn(`Trait "${key}" not found in traitData.js`);
+    const t = traitData[key];
+    if (!t) {
+      console.warn(`⚠️ Trait "${key}" not found in traitData.js`);
+      return null;
+    }
+
     return (
-      <div style={{ color: "red", marginBottom: "20px" }}>
-        ⚠️ Missing trait: <strong>{key}</strong>
-      </div>
-    );
-  }
-
-  return (
-    <div key={key} style={{ marginBottom: "30px" }}>
-      <label style={{ display: "block", fontWeight: "bold", marginBottom: "5px" }}>
-        {t.label}
-      </label>
-      <select name={key} onChange={handleChange} required style={{ width: "100%", padding: "8px", marginBottom: "10px" }}>
-        <option value="">--Select State--</option>
-        {t.states.map((s) => (
-          <option key={s} value={s}>{s}</option>
-        ))}
-      </select>
-      {/* Stage & Assessment code stays here */}
-    </div>
-  );
-};
-
+      <div key={key} style={{ marginBottom: "30px" }}>
+        <label style={{ display: "block", fontWeight: "bold", marginBottom: "5px" }}>
+          {t.label}
+        </label>
+        <select
+          name={key}
+          onChange={handleChange}
+          required
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+        >
+          <option value="">--Select State--</option>
+          {t.states.map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
         </select>
 
-        <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>Stage of Observation</label>
-        <select name={key + "Stage"} onChange={handleChange} required style={{ width: "100%", padding: "8px", marginBottom: "10px" }}>
+        <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>
+          Stage of Observation
+        </label>
+        <select
+          name={key + "Stage"}
+          onChange={handleChange}
+          required
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+        >
           <option value="">--Select Stage--</option>
           {STAGE_OPTIONS.map((s) => (
             <option key={s} value={s}>{s}</option>
           ))}
         </select>
 
-        <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>Type of Assessment</label>
-        <select name={key + "Assessment"} onChange={handleChange} required style={{ width: "100%", padding: "8px" }}>
+        <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>
+          Type of Assessment
+        </label>
+        <select
+          name={key + "Assessment"}
+          onChange={handleChange}
+          required
+          style={{ width: "100%", padding: "8px" }}
+        >
           <option value="">--Select Assessment--</option>
           {ASSESSMENT_OPTIONS.map((a) => (
             <option key={a} value={a}>{a}</option>
@@ -149,36 +105,13 @@ export default function Home() {
         Mulberry DUS Descriptor Form
       </h1>
 
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
-        {titles.map((title, i) => (
-          <div key={i} style={{
-            fontSize: "14px",
-            fontWeight: "bold",
-            color: step === i ? "black" : "#aaa",
-          }}>
-            {i + 1}. {title}
-          </div>
-        ))}
-      </div>
-
       <form onSubmit={(e) => e.preventDefault()}>
-        {sections[step].map(renderTrait)}
+        {allTraits.map(renderTrait)}
 
         <div style={{ marginTop: "20px" }}>
-          {step > 0 && (
-            <button type="button" onClick={() => setStep(step - 1)}>
-              Back
-            </button>
-          )}
-          {step < sections.length - 1 ? (
-            <button type="button" onClick={() => setStep(step + 1)} style={{ marginLeft: "10px" }}>
-              Next
-            </button>
-          ) : (
-            <button type="button" onClick={handleSubmit} style={{ marginLeft: "10px" }}>
-              Submit
-            </button>
-          )}
+          <button type="button" onClick={handleSubmit} style={{ marginLeft: "10px" }}>
+            Submit
+          </button>
         </div>
       </form>
     </div>
