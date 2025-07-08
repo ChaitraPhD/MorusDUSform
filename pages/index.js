@@ -60,6 +60,7 @@ export default function Home() {
     "leafMargin",
     "leafType",
     "fruitColor",
+    "budShape"
   ];
 
   const sections = [qualitative, quantitative, pseudo];
