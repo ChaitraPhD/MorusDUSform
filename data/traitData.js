@@ -254,17 +254,17 @@ export const traitData = {
       "Mixed": "Mixed (3)"
     }
   },
-  budShape: {
-    label: "Bud Shape",
-    type: "Pseudo-qualitative",
-    states: ["Round", "Acute triangle", "Long triangle", "Spindle"],
-    stateNotes: {
-      "Round": "Round (3)",
-      "Acute triangle": "Acute triangle (5)",
-      "Long triangle": "Long triangle (7)",
-      "Spindle": "Spindle (9)"
-    }
-  },
+ budShape: {
+  label: "Mature Bud Shape",
+  type: "Pseudo-qualitative",
+  states: ["Round", "Acute triangle", "Long triangle", "Spindle"],
+  stateNotes: {
+    "Round": "Round (3)",
+    "Acute triangle": "Acute triangle (5)",
+    "Long triangle": "Long triangle (7)",
+    "Spindle": "Spindle (9)"
+  }
+},
   accessoryBud: {
     label: "Accessory Bud",
     type: "Qualitative",
