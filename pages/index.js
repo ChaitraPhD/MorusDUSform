@@ -58,7 +58,7 @@ export default function Home() {
     "leafMargin",
     "leafType",
     "fruitColor",
-    "budShape"
+    "budShape",
   ];
 
   const sections = [qualitative, quantitative, pseudo];
@@ -90,22 +90,20 @@ export default function Home() {
   const renderTrait = (key) => {
     const t = traitData[key];
     if (!t) {
-      console.log("Rendering trait:", key, traitData[key]);
-
       console.warn(`Missing trait data for key: ${key}`);
       return null;
     }
 
     return (
-      <div key={key} className="mb-6">
-        <label className="block text-sm font-medium text-primary mb-1">
+      <div key={key} style={{ marginBottom: "30px" }}>
+        <label style={{ display: "block", fontWeight: "bold", marginBottom: "5px" }}>
           {t.label}
         </label>
         <select
           name={key}
           onChange={handleChange}
           required
-          className="mt-1 block w-full px-3 py-2 bg-primaryLight/30 border border-primaryLight rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
         >
           <option value="">--Select State--</option>
           {t.states.map((s) => (
@@ -115,14 +113,14 @@ export default function Home() {
           ))}
         </select>
 
-        <label className="block text-sm font-medium text-primary mt-4 mb-1">
+        <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>
           Stage of Observation
         </label>
         <select
           name={key + "Stage"}
           onChange={handleChange}
           required
-          className="mt-1 block w-full px-3 py-2 bg-primaryLight/30 border border-primaryLight rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
         >
           <option value="">--Select Stage--</option>
           {STAGE_OPTIONS.map((s) => (
@@ -132,14 +130,14 @@ export default function Home() {
           ))}
         </select>
 
-        <label className="block text-sm font-medium text-primary mt-4 mb-1">
+        <label style={{ display: "block", marginTop: "10px", fontWeight: "bold" }}>
           Type of Assessment
         </label>
         <select
           name={key + "Assessment"}
           onChange={handleChange}
           required
-          className="mt-1 block w-full px-3 py-2 bg-primaryLight/30 border border-primaryLight rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition"
+          style={{ width: "100%", padding: "8px" }}
         >
           <option value="">--Select Assessment--</option>
           {ASSESSMENT_OPTIONS.map((a) => (
@@ -153,61 +151,16 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-primaryLight p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-primary mb-6">
+    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
+      <h1 style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "20px" }}>
         Mulberry DUS Descriptor Form
       </h1>
 
-      <div className="flex justify-between mb-8">
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
         {titles.map((title, i) => (
           <div
             key={i}
-            className={`text-sm font-medium ${
-              step === i ? "text-primary" : "text-gray-400"
-            }`}
-          >
-            {i + 1}. {title}
-          </div>
-        ))}
-      </div>
-
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6 ring-1 ring-primaryLight">
-          <h2 className="text-xl font-semibold text-primary mb-4">
-            {titles[step]}
-          </h2>
-          {sections[step].map(renderTrait)}
-        </div>
-
-        <div className="flex justify-between">
-          <button
-            type="button"
-            onClick={() => setStep((s) => Math.max(0, s - 1))}
-            disabled={step === 0}
-            className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
-          >
-            Back
-          </button>
-
-          {step < sections.length - 1 ? (
-            <button
-              type="button"
-              onClick={() => setStep((s) => s + 1)}
-              className="px-4 py-2 bg-secondary text-white rounded hover:bg-secondaryLight"
-            >
-              Next
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="px-6 py-2 bg-primary text-white rounded hover:bg-primaryLight"
-            >
-              Submit
-            </button>
-          )}
-        </div>
-      </form>
-    </div>
-  );
-}
+            style={{
+              fontSize: "14px",
+              fontWeight: "bold",
+              color: step === i ? "black
