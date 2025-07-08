@@ -21,45 +21,51 @@ export default function Home() {
     "MS - Measured from individual",
   ];
 
-  const qualitative = [
-    "stipuleNature",
-    "budAttachment",
-    "accessoryBud",
-    "sex",
-    "stigmaNature",
-    "stigmaType",
-  ];
-  const quantitative = [
-    "plantVigor",
-    "sprouting",
-    "cuttingSurvival",
-    "shootThickness",
-    "internodalDistance",
-    "petioleLength",
-    "leafLength",
-    "leafWidth",
-    "inflorescenceLength",
-    "fruitLength",
-    "fruitWidth",
-  ];
-  const pseudo = [
-    "growthHabit",
-    "shootType",
-    "matureShootColor",
-    "phyllotaxy",
-    "leafAngle",
-    "petioleThickness",
-    "leafShape",
-    "leafColor",
-    "leafHairiness",
-    "leafTexture",
-    "leafBase",
-    "leafApex",
-    "leafMargin",
-    "leafType",
-    "fruitColor",
-    "budShape",
-  ];
+ export const qualitative = [
+  "stipuleNature",
+  "budAttachment",
+  "accessoryBud",
+  "sex",
+  "stigmaNature",
+  "stigmaType",
+  "matureBudSize",  
+  "matureBudAttachment" 
+];
+
+export const quantitative = [
+  "plantVigor",
+  "sprouting",
+  "cuttingSurvival",
+  "shootThickness",
+  "internodalDistance",
+  "leafAngle",
+  "petioleLength",
+  "petioleThickness",
+  "leafLength",
+  "leafWidth",
+  "leafSize",
+  "inflorescenceLength",
+  "fruitLength",
+  "fruitWidth",
+];
+
+export const pseudo = [
+  "growthHabit",
+  "shootType",
+  "matureShootColor",
+  "phyllotaxy",
+  "leafShape",
+  "leafColor",
+  "leafHairiness",
+  "leafTexture",
+  "leafBase",
+  "leafApex",
+  "leafMargin",
+  "leafType",
+  "fruitColor",
+  "budShape",
+];
+
 
   const sections = [qualitative, quantitative, pseudo];
   const titles = [
