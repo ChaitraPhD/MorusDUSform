@@ -40,7 +40,6 @@ export default function Home() {
     "petioleLength",
     "leafLength",
     "leafWidth",
-    "budSize",
     "inflorescenceLength",
     "fruitLength",
     "fruitWidth",
@@ -60,7 +59,6 @@ export default function Home() {
     "leafApex",
     "leafMargin",
     "leafType",
-    "budShape",
     "fruitColor",
   ];
 
