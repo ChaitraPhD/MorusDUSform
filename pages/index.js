@@ -90,6 +90,8 @@ export default function Home() {
   const renderTrait = (key) => {
     const t = traitData[key];
     if (!t) {
+      console.log("Rendering trait:", key, traitData[key]);
+
       console.warn(`Missing trait data for key: ${key}`);
       return null;
     }
