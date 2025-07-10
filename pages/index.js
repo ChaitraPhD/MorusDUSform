@@ -4,7 +4,7 @@ import { traitData } from "../data/traitData";
 export default function Home() {
   const [formData, setFormData] = useState({});
 
-  // Group traits
+  // Group traits by type
   const groupedTraits = {
     Qualitative: [],
     Quantitative: [],
@@ -15,7 +15,7 @@ export default function Home() {
     groupedTraits[trait.type]?.push(key);
   });
 
-  // Handle value change
+  // Handle dropdown value change
   const handleChange = (key, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -23,7 +23,7 @@ export default function Home() {
     }));
   };
 
-  // Render each trait with serial number
+  // Render each trait with a serial number
   const renderTrait = (traitKey, serialNumber) => {
     const trait = traitData[traitKey];
 
@@ -51,11 +51,11 @@ export default function Home() {
   // Handle form submission
   const handleSubmit = () => {
     console.log("Form Data Submitted:", formData);
-    alert("Form submitted! Check console for submitted data.");
+    alert("Form submitted! Check console for data.");
   };
 
-  // Render form
-  let serialNumber = 1; // Start serial numbering from 1
+  // Rendering the form with serial numbering
+  let serialNumber = 1;
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
       <h1>Mulberry DUS Descriptor Form</h1>
@@ -65,4 +65,13 @@ export default function Home() {
           <div key={group} style={{ marginBottom: "30px" }}>
             <h2>{group} Traits</h2>
             {traitKeys.map((traitKey) => renderTrait(traitKey, serialNumber++))}
-          </
+          </div>
+        ))}
+
+        <button type="button" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+}
