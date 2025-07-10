@@ -93,7 +93,7 @@ export default function Home() {
         maxWidth: "900px",
         margin: "0 auto",
         padding: "20px",
-        backgroundImage: "url('/mulberry-background.jpg')",
+        backgroundImage: "url('/mulberryleaves.webp')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
