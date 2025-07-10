@@ -23,13 +23,11 @@ const ASSESSMENT_OPTIONS = [
 export default function Home() {
   const [formData, setFormData] = useState({});
 
-  // Group traits by type
   const groupedTraits = { Qualitative: [], Quantitative: [], "Pseudo-qualitative": [] };
   Object.entries(traitData).forEach(([key, trait]) => {
     groupedTraits[trait.type]?.push(key);
   });
 
-  // State update
   const handleChange = (traitKey, updatedData) => {
     setFormData((prev) => ({
       ...prev,
@@ -37,14 +35,13 @@ export default function Home() {
     }));
   };
 
-  // Render each trait
   const renderTrait = (traitKey, serialNumber) => {
     const trait = traitData[traitKey];
 
     return (
       <div key={traitKey} style={{ marginBottom: "20px" }}>
         <label>
-          <strong>{serialNumber}. {trait.label}</strong><br />
+          <h3 style={{ fontWeight: "bold" }}>{serialNumber}. {trait.label}</h3>
 
           <select
             style={{ marginRight: "10px", marginTop: "5px" }}
@@ -83,7 +80,6 @@ export default function Home() {
     );
   };
 
-  // Submit handler
   const handleSubmit = () => {
     console.log("Form Data Submitted:", formData);
     alert("Form submitted! Check console for data.");
@@ -92,18 +88,30 @@ export default function Home() {
   let serialNumber = 1;
 
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
-      <h1>Mulberry DUS Descriptor Form</h1>
+    <div
+      style={{
+        maxWidth: "900px",
+        margin: "0 auto",
+        padding: "20px",
+        backgroundImage: "url('/mulberry-background.jpg')",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+    >
+      <h1 style={{ textAlign: "center", fontSize: "36px", fontWeight: "bold", marginBottom: "30px", color: "#3b3b3b", textShadow: "1px 1px #ccc" }}>
+        Mulberry DUS Descriptor Form
+      </h1>
 
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={(e) => e.preventDefault()} style={{ backgroundColor: "rgba(255, 255, 255, 0.85)", padding: "20px", borderRadius: "12px" }}>
         {Object.entries(groupedTraits).map(([group, traitKeys]) => (
           <div key={group} style={{ marginBottom: "30px" }}>
-            <h2>{group} Traits</h2>
+            <h2 style={{ color: "#2a4d69", fontSize: "24px" }}>{group} Traits</h2>
             {traitKeys.map((traitKey) => renderTrait(traitKey, serialNumber++))}
           </div>
         ))}
 
-        <button type="button" onClick={handleSubmit}>Submit</button>
+        <button type="button" onClick={handleSubmit} style={{ fontSize: "18px", padding: "10px 20px" }}>Submit</button>
       </form>
     </div>
   );
