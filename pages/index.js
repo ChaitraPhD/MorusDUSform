@@ -1,12 +1,10 @@
-// pages/index.js
-
 import { useState } from "react";
 import { traitData } from "../data/traitData";
 
 export default function Home() {
   const [formData, setFormData] = useState({});
 
-  // Group traits by their type
+  // Group traits into Qualitative, Quantitative, Pseudo-qualitative
   const groupedTraits = {
     Qualitative: [],
     Quantitative: [],
@@ -17,32 +15,26 @@ export default function Home() {
     groupedTraits[trait.type]?.push(key);
   });
 
-  // Handle form field change
-  const handleChange = (key, value) => {
+  // On change, update formData state
+  const handleChange = (traitKey, selectedValue) => {
     setFormData((prev) => ({
       ...prev,
-      [key]: value,
+      [traitKey]: selectedValue,
     }));
   };
 
-  // Form submission
-  const handleSubmit = () => {
-    console.log("Submitted Data:", formData);
-    alert("Form submitted! Check console for submitted data.");
-  };
-
-  // Render each trait input
-  const renderTrait = (key) => {
-    const trait = traitData[key];
+  // Render one trait dropdown
+  const renderTrait = (traitKey) => {
+    const trait = traitData[traitKey];
 
     return (
-      <div key={key} style={{ marginBottom: "10px" }}>
+      <div key={traitKey} style={{ marginBottom: "12px" }}>
         <label>
           <strong>{trait.label}</strong>
           <select
-            value={formData[key] || ""}
-            onChange={(e) => handleChange(key, e.target.value)}
             style={{ marginLeft: "10px" }}
+            value={formData[traitKey] || ""}
+            onChange={(e) => handleChange(traitKey, e.target.value)}
           >
             <option value="">Select</option>
             {trait.states.map((state) => (
@@ -56,16 +48,24 @@ export default function Home() {
     );
   };
 
+  // Handle form submission
+  const handleSubmit = () => {
+    console.log("Form submitted with data:", formData);
+    alert("Form submitted! Check console for output.");
+  };
+
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
       <h1>Mulberry DUS Descriptor Form</h1>
+
       <form onSubmit={(e) => e.preventDefault()}>
-        {Object.entries(groupedTraits).map(([group, keys]) => (
-          <div key={group} style={{ marginBottom: "30px" }}>
+        {Object.entries(groupedTraits).map(([group, traitKeys]) => (
+          <div key={group} style={{ marginBottom: "20px" }}>
             <h2>{group} Traits</h2>
-            {keys.map(renderTrait)}
+            {traitKeys.map(renderTrait)}
           </div>
         ))}
+
         <button type="button" onClick={handleSubmit}>
           Submit
         </button>
