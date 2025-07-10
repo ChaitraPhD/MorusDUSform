@@ -19,7 +19,7 @@ const ASSESSMENT_OPTIONS = [
 
 export default function Home() {
   const [formData, setFormData] = useState({});
-  const [submitStatus, setSubmitStatus] = useState(""); // for showing status messages
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const groupedTraits = { Qualitative: [], Quantitative: [], "Pseudo-qualitative": [] };
   Object.entries(traitData).forEach(([key, trait]) => {
@@ -145,3 +145,37 @@ export default function Home() {
             width: "40px",
             height: "40px",
             borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+        Mulberry DUS Descriptor Form
+      </h1>
+
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.85)",
+          padding: "20px",
+          borderRadius: "12px",
+        }}
+      >
+        {Object.entries(groupedTraits).map(([group, traitKeys]) => (
+          <div key={group} style={{ marginBottom: "30px" }}>
+            <h2 style={{ color: "#2a4d69", fontSize: "24px" }}>{group} Traits</h2>
+            {traitKeys.map((traitKey) => renderTrait(traitKey, serialNumber++))}
+          </div>
+        ))}
+
+        <button type="button" onClick={handleSubmit} style={{ fontSize: "18px", padding: "10px 20px" }}>
+          Submit
+        </button>
+
+        {submitStatus && (
+          <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: "bold", color: "#333" }}>
+            {submitStatus}
+          </p>
+        )}
+      </form>
+    </div>
+  );
+}
