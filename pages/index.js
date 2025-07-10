@@ -35,7 +35,6 @@ export default function Home() {
 
   const renderTrait = (traitKey, serialNumber) => {
     const trait = traitData[traitKey];
-
     return (
       <div key={traitKey} style={{ marginBottom: "20px" }}>
         <label>
@@ -159,22 +158,31 @@ export default function Home() {
           borderRadius: "12px",
         }}
       >
-        {Object.entries(groupedTraits).map(([group, traitKeys]) => (
-          <div key={group} style={{ marginBottom: "30px" }}>
-            <h2 style={{ color: "#2a4d69", fontSize: "24px" }}>{group} Traits</h2>
-            {traitKeys.map((traitKey) => renderTrait(traitKey, serialNumber++))}
+        {Object.entries(groupedTraits).map(([group, keys]) => (
+          <div key={group}>
+            <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>{group}</h2>
+            {keys.map((key) => renderTrait(key, serialNumber++))}
           </div>
         ))}
 
-        <button type="button" onClick={handleSubmit} style={{ fontSize: "18px", padding: "10px 20px" }}>
+        <button
+          type="button"
+          onClick={handleSubmit}
+          style={{
+            marginTop: "20px",
+            padding: "10px 20px",
+            fontSize: "16px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+        >
           Submit
         </button>
 
-        {submitStatus && (
-          <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: "bold", color: "#333" }}>
-            {submitStatus}
-          </p>
-        )}
+        <p style={{ marginTop: "15px", fontWeight: "bold" }}>{submitStatus}</p>
       </form>
     </div>
   );
