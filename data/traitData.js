@@ -18,6 +18,17 @@ export const traitData = {
       Drooping: "Drooping (9)",
     },
   },
+  matureBudSize: {
+  label: "Mature Bud Size",
+  type: "Quantitative",
+  states: ["Small", "Medium", "Large"],
+  stateNotes: {
+    Small: "Small (3)",
+    Medium: "Medium (5)",
+    Large: "Large (7)",
+  },
+},
+
   sprouting: {
     label: "Sprouting Days",
     type: "Quantitative",
