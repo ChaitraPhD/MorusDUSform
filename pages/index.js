@@ -1,9 +1,6 @@
-// pages/index.js
-
 import { useState } from "react";
 import { traitData } from "../data/traitData";
 
-// Stage & Assessment Options
 const STAGE_OPTIONS = [
   { code: 8, description: "After 8 days of pruning (bud sprouting)" },
   { code: 20, description: "Mature inflorescence (~2–3 weeks after pruning)" },
@@ -22,6 +19,7 @@ const ASSESSMENT_OPTIONS = [
 
 export default function Home() {
   const [formData, setFormData] = useState({});
+  const [submitStatus, setSubmitStatus] = useState(""); // for showing status messages
 
   const groupedTraits = { Qualitative: [], Quantitative: [], "Pseudo-qualitative": [] };
   Object.entries(traitData).forEach(([key, trait]) => {
@@ -80,7 +78,7 @@ export default function Home() {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const incompleteTraits = Object.entries(traitData).filter(([traitKey]) => {
       const data = formData[traitKey] || {};
       return !data.value || !data.stage || !data.assessment;
@@ -91,8 +89,25 @@ export default function Home() {
       return;
     }
 
-    console.log("Form Data Submitted:", formData);
-    alert("✅ Form submitted successfully! Check console for data.");
+    try {
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus("✅ Form submitted successfully!");
+        console.log("MongoDB Insert Result:", result);
+      } else {
+        setSubmitStatus(`❌ Submission failed: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Submit Error:", error);
+      setSubmitStatus("❌ An error occurred during submission.");
+    }
   };
 
   let serialNumber = 1;
@@ -130,31 +145,3 @@ export default function Home() {
             width: "40px",
             height: "40px",
             borderRadius: "50%",
-            objectFit: "cover",
-          }}
-        />
-        Mulberry DUS Descriptor Form
-      </h1>
-
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.85)",
-          padding: "20px",
-          borderRadius: "12px",
-        }}
-      >
-        {Object.entries(groupedTraits).map(([group, traitKeys]) => (
-          <div key={group} style={{ marginBottom: "30px" }}>
-            <h2 style={{ color: "#2a4d69", fontSize: "24px" }}>{group} Traits</h2>
-            {traitKeys.map((traitKey) => renderTrait(traitKey, serialNumber++))}
-          </div>
-        ))}
-
-        <button type="button" onClick={handleSubmit} style={{ fontSize: "18px", padding: "10px 20px" }}>
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-}
