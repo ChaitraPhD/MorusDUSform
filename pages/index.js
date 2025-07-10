@@ -81,8 +81,18 @@ export default function Home() {
   };
 
   const handleSubmit = () => {
+    const incompleteTraits = Object.entries(traitData).filter(([traitKey]) => {
+      const data = formData[traitKey] || {};
+      return !data.value || !data.stage || !data.assessment;
+    });
+
+    if (incompleteTraits.length > 0) {
+      alert("⚠️ Please fill in all details for each trait before submitting.");
+      return;
+    }
+
     console.log("Form Data Submitted:", formData);
-    alert("Form submitted! Check console for data.");
+    alert("✅ Form submitted successfully! Check console for data.");
   };
 
   let serialNumber = 1;
