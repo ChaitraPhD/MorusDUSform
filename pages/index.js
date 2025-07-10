@@ -4,7 +4,7 @@ import { traitData } from "../data/traitData";
 export default function Home() {
   const [formData, setFormData] = useState({});
 
-  // Group traits into Qualitative, Quantitative, Pseudo-qualitative
+  // Group traits
   const groupedTraits = {
     Qualitative: [],
     Quantitative: [],
@@ -15,22 +15,22 @@ export default function Home() {
     groupedTraits[trait.type]?.push(key);
   });
 
-  // On change, update formData state
-  const handleChange = (traitKey, selectedValue) => {
+  // Handle value change
+  const handleChange = (key, value) => {
     setFormData((prev) => ({
       ...prev,
-      [traitKey]: selectedValue,
+      [key]: value,
     }));
   };
 
-  // Render one trait dropdown
-  const renderTrait = (traitKey) => {
+  // Render each trait with serial number
+  const renderTrait = (traitKey, serialNumber) => {
     const trait = traitData[traitKey];
 
     return (
       <div key={traitKey} style={{ marginBottom: "12px" }}>
         <label>
-          <strong>{trait.label}</strong>
+          <strong>{serialNumber}. {trait.label}</strong>
           <select
             style={{ marginLeft: "10px" }}
             value={formData[traitKey] || ""}
@@ -50,26 +50,19 @@ export default function Home() {
 
   // Handle form submission
   const handleSubmit = () => {
-    console.log("Form submitted with data:", formData);
-    alert("Form submitted! Check console for output.");
+    console.log("Form Data Submitted:", formData);
+    alert("Form submitted! Check console for submitted data.");
   };
 
+  // Render form
+  let serialNumber = 1; // Start serial numbering from 1
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
       <h1>Mulberry DUS Descriptor Form</h1>
 
       <form onSubmit={(e) => e.preventDefault()}>
         {Object.entries(groupedTraits).map(([group, traitKeys]) => (
-          <div key={group} style={{ marginBottom: "20px" }}>
+          <div key={group} style={{ marginBottom: "30px" }}>
             <h2>{group} Traits</h2>
-            {traitKeys.map(renderTrait)}
-          </div>
-        ))}
-
-        <button type="button" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-}
+            {traitKeys.map((traitKey) => renderTrait(traitKey, serialNumber++))}
+          </
