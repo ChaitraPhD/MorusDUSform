@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { traitData } from "../data/traitData";
 
-// Stage & Assessment Options with descriptions
+// Stage & Assessment Options
 const STAGE_OPTIONS = [
   { code: 8, description: "After 8 days of pruning (bud sprouting)" },
   { code: 20, description: "Mature inflorescence (~2–3 weeks after pruning)" },
@@ -99,11 +99,41 @@ export default function Home() {
         backgroundPosition: "center",
       }}
     >
-      <h1 style={{ textAlign: "center", fontSize: "36px", fontWeight: "bold", marginBottom: "30px", color: "#3b3b3b", textShadow: "1px 1px #ccc" }}>
+      <h1
+        style={{
+          textAlign: "center",
+          fontSize: "36px",
+          fontWeight: "bold",
+          marginBottom: "30px",
+          color: "#3b3b3b",
+          textShadow: "1px 1px #ccc",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <img
+          src="/mulberryleaves.webp"
+          alt="Mulberry Leaves"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
         Mulberry DUS Descriptor Form
       </h1>
 
-      <form onSubmit={(e) => e.preventDefault()} style={{ backgroundColor: "rgba(255, 255, 255, 0.85)", padding: "20px", borderRadius: "12px" }}>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.85)",
+          padding: "20px",
+          borderRadius: "12px",
+        }}
+      >
         {Object.entries(groupedTraits).map(([group, traitKeys]) => (
           <div key={group} style={{ marginBottom: "30px" }}>
             <h2 style={{ color: "#2a4d69", fontSize: "24px" }}>{group} Traits</h2>
@@ -111,7 +141,9 @@ export default function Home() {
           </div>
         ))}
 
-        <button type="button" onClick={handleSubmit} style={{ fontSize: "18px", padding: "10px 20px" }}>Submit</button>
+        <button type="button" onClick={handleSubmit} style={{ fontSize: "18px", padding: "10px 20px" }}>
+          Submit
+        </button>
       </form>
     </div>
   );
