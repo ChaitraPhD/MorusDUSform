@@ -21,10 +21,23 @@ export default function Home() {
   const [formData, setFormData] = useState({});
   const [submitStatus, setSubmitStatus] = useState("");
 
+  // Correct grouping
   const groupedTraits = { Qualitative: [], Quantitative: [], "Pseudo-qualitative": [] };
   Object.entries(traitData).forEach(([key, trait]) => {
-    groupedTraits[trait.type]?.push(key);
+    if (groupedTraits[trait.type]) {
+      groupedTraits[trait.type].push(key);
+    } else {
+      console.warn("⚠️ Unrecognized trait type:", trait.type, "for", key);
+    }
   });
+
+  console.log("➡️ Total traits in data:", Object.keys(traitData).length);
+  console.log("➡️ Total grouped traits:",
+    groupedTraits.Qualitative.length +
+    groupedTraits["Pseudo-qualitative"].length +
+    groupedTraits.Quantitative.length
+  );
+  console.log("Grouped Traits:", groupedTraits);
 
   const handleChange = (traitKey, updatedData) => {
     setFormData((prev) => ({
